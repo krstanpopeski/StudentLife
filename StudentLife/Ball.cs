@@ -18,17 +18,18 @@ namespace StudentLife
         public double velocityX { get; set; }
         public double velocityY { get; set; }
 
-        public double mass = 1;
+        public double mass { get; set; }
 
-        public Ball(double x, double y, double radius, double velocity,double angle)
+        public Ball(double x, double y, double radius, double dx, double dy)
         {
             this.X = x;
             this.Y = y;
-            this.Radius = radius;   
-            this.Velocity = velocity;
-            this.Angle = angle;
-            this.velocityX = Math.Cos(Angle) * Velocity;
-            this.velocityY = Math.Sin(Angle) * Velocity;
+            this.Radius = radius;
+            this.Velocity = Math.Sqrt(dx * dx + dy * dy);
+            this.Angle = Math.Atan2(dy, dx);
+            this.velocityX = dx;
+            this.velocityY = dy;
+            this.mass = new Random().NextDouble() * (0.9 - 0.1) + 0.1;
 
         }
 
@@ -36,12 +37,12 @@ namespace StudentLife
         {
             double nextX = X + velocityX;
             double nextY = Y + velocityY;
-            if(nextX - Radius <= bounds.Left || (nextX + Radius >= bounds.Right))
+            if (nextX - Radius <= bounds.Left || (nextX + Radius >= bounds.Right))
             {
                 velocityX = -velocityX;
 
             }
-            if(nextY - Radius <= bounds.Top || (nextY - Radius >= bounds.Bottom))
+            if (nextY - Radius <= bounds.Top || (nextY - Radius >= bounds.Bottom))
             {
                 velocityY = -velocityY;
             }
@@ -53,6 +54,7 @@ namespace StudentLife
         {
             g.FillEllipse(brush, (float)(X - Radius), (float)(Y - Radius), (float)(Radius * 2), (float)(Radius * 2));
         }
+
 
 
     }
