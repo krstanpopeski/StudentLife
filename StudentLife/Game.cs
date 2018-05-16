@@ -14,14 +14,18 @@ namespace StudentLife
         public static Random randInt = new Random();
         public int Width { get; set; }
         public int Height { get; set; }
+        public bool isPaused;
+        public int level { get; set; }
         public Grade grade;
         public int poeni { get; set; }
         public int vreme { get; set; }
-        public Game(int Width, int Height)
+        public Game(int Width, int Height, bool IsPaused)
         {
+            this.isPaused = IsPaused;
             vreme = 0;
+            level = 1;
             balls = new List<Ball>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10 ; i++)
             {
                Ball ball = new Ball((float)randInt.Next(0, Width), (float)randInt.Next(41, Height), 20, randomDx(), randomDy());
                 balls.Add(ball);
@@ -33,6 +37,21 @@ namespace StudentLife
         public void AddBall(Ball ball)
         {
             balls.Add(ball);
+        }
+
+        public void increaseLevel()
+        {
+            level++;
+            isPaused = true;
+            MessageBox.Show("You have leveled up!");
+            isPaused = false;
+            foreach (Ball ball in balls)
+            {
+                ball.velocityX += 5;
+                ball.velocityY += 10;
+            }
+            grade = new Grade(randInt.Next(-290, 560), -270);
+
         }
 
         public void generateGrade()
@@ -63,7 +82,7 @@ namespace StudentLife
             }
         }
 
-        public bool CheckHitWithMouse(int x, int y)
+        public bool CheckHitWithMouse(int x, int y,bool isPaused)
         {
             for (int i = 0; i < balls.Count; i++)
             {
@@ -73,6 +92,7 @@ namespace StudentLife
 
                  if (balls.ElementAt(i).Radius + balls.ElementAt(i).Radius >= d)
                  {
+                     isPaused = true;
                      MessageBox.Show("Game Over! You have won: "+poeni+" points!");
                      return true;
 
@@ -84,6 +104,24 @@ namespace StudentLife
             if (grade.CheckHitWithMouse(x, y))
             {
                 poeni += grade.value;
+                if (poeni > 50 && level == 1)
+                {
+                    increaseLevel();
+                    
+                }
+
+                if (poeni > 120 && level == 2)
+                {
+                    increaseLevel();
+                }
+
+                if (poeni > 180 && level == 3)
+                {
+                    isPaused = true;
+                    MessageBox.Show("You have finnished this game, great job!");
+                    level++;
+                    return true;
+                }
                 generateGrade();
             }
 

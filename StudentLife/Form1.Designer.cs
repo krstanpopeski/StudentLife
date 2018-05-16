@@ -39,6 +39,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.panel1.SuspendLayout();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -108,10 +109,11 @@
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel1,
-            this.toolStripLabel2});
+            this.toolStripLabel2,
+            this.toolStripLabel3});
             this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(184, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(301, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // toolStripLabel1
@@ -133,6 +135,12 @@
             this.timer2.Enabled = true;
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(86, 22);
+            this.toolStripLabel3.Text = "toolStripLabel3";
             // 
             // Form1
             // 
@@ -170,6 +178,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel3;
     }
 }
 

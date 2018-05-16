@@ -18,16 +18,18 @@ namespace StudentLife
         private int timeCall;
         Brush brush;
         Pen pen;
+        public bool isPaused;
         Random randInt;
         private Game game;
 
         public Form1()
         {
+            isPaused = false;
             this.Cursor = new Cursor(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+ "\\stickman.cur");
             timeCall = 0;
             this.DoubleBuffered = true;
             InitializeComponent();
-            game = new Game(Width, Height);
+            game = new Game(Width, Height,isPaused);
             graphics = CreateGraphics();
             randInt = new Random();
             Show();
@@ -47,15 +49,19 @@ namespace StudentLife
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (timeCall == 100)
+            if (!isPaused)
             {
-                game.generateGrade();
-                timeCall = 0;
+                if (timeCall == 100)
+                {
+                    game.generateGrade();
+                    timeCall = 0;
+                }
+
+                game.CheckHit();
+                game.Move();
+                timeCall++;
+                Invalidate(true);
             }
-            game.CheckHit();
-            game.Move();
-            timeCall++;
-            Invalidate(true);
 
         }
 
@@ -73,10 +79,10 @@ namespace StudentLife
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (game.CheckHitWithMouse(e.X, e.Y))
+            if (game.CheckHitWithMouse(e.X, e.Y,isPaused))
             {
-                game = new Game(Width, Height);
-                
+                game = new Game(Width, Height,isPaused);
+                isPaused = false;
             }
 
         }
@@ -104,6 +110,7 @@ namespace StudentLife
            TimeSpan t = TimeSpan.FromSeconds(game.vreme);
             string time = string.Format("{0}m:{1}s", t.Minutes, t.Seconds);
            toolStripLabel2.Text = "Time: " + time;
+            toolStripLabel3.Text = "Level: " + game.level;
         }
 
         private void timer2_Tick(object sender, EventArgs e)
