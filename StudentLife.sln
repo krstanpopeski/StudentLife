@@ -5,6 +5,11 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentLife", "StudentLife\StudentLife.csproj", "{D7BE0C3F-D3CC-43A3-A4AD-2FA1E8D5ABA0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4F227517-E582-4065-B5BF-958757ED1A17}"
+	ProjectSection(SolutionItems) = preProject
+		eden.bmp = eden.bmp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

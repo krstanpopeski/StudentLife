@@ -53,6 +53,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="Grade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -66,6 +67,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -79,6 +81,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Grades\stickMan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cursors\Stickman Normal Select.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eden.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,7 +14,7 @@ namespace StudentLife
         public double Radius { get; set; }
         public double Velocity { get; set; }
         public double Angle { get; set; }
-        public static Rectangle bounds = new Rectangle(1, 41, 745, 426);
+        public static Rectangle bounds { get; set; }
         public double velocityX { get; set; }
         public double velocityY { get; set; }
 
@@ -22,6 +22,7 @@ namespace StudentLife
 
         public Ball(double x, double y, double radius, double dx, double dy)
         {
+            bounds = new Rectangle(1, 41, 745, 400);
             this.X = x;
             this.Y = y;
             this.Radius = radius;

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace StudentLife
 {
@@ -13,19 +14,30 @@ namespace StudentLife
         public static Random randInt = new Random();
         public int Width { get; set; }
         public int Height { get; set; }
+        public Grade grade;
+        public int poeni { get; set; }
+        public int vreme { get; set; }
         public Game(int Width, int Height)
         {
+            vreme = 0;
             balls = new List<Ball>();
             for (int i = 0; i < 10; i++)
             {
                Ball ball = new Ball((float)randInt.Next(0, Width), (float)randInt.Next(41, Height), 20, randomDx(), randomDy());
                 balls.Add(ball);
             }
+            grade = new Grade(randInt.Next(-290, 560),-270);
+            poeni = 0;
         }
 
         public void AddBall(Ball ball)
         {
             balls.Add(ball);
+        }
+
+        public void generateGrade()
+        {
+            grade = new Grade(randInt.Next(-290, 560), -270);
         }
 
         public void CheckHit()
@@ -51,12 +63,40 @@ namespace StudentLife
             }
         }
 
+        public bool CheckHitWithMouse(int x, int y)
+        {
+            for (int i = 0; i < balls.Count; i++)
+            {
+                
+                var d = Math.Sqrt(Math.Pow(x - balls.ElementAt(i).X, 2)
+                          + Math.Pow(y - balls.ElementAt(i).Y, 2));
+
+                 if (balls.ElementAt(i).Radius + balls.ElementAt(i).Radius >= d)
+                 {
+                     MessageBox.Show("Game Over! You have won: "+poeni+" points!");
+                     return true;
+
+                 }
+                 
+                
+            } 
+
+            if (grade.CheckHitWithMouse(x, y))
+            {
+                poeni += grade.value;
+                generateGrade();
+            }
+
+            return false;
+        }
+
         public void Draw(Graphics g, Brush b)
         {
             foreach (Ball ball in balls)
             {
                 ball.Draw(b,g);
             }
+            grade.Draw(g);
         }
 
         public void Move()
@@ -65,6 +105,7 @@ namespace StudentLife
             {
                 ball.Move();;
             }
+            grade.Move();
         }
 
         private void ManageBounce(Ball ball1, Ball ball2)
@@ -94,6 +135,11 @@ namespace StudentLife
             ball2.velocityY = dy2F;
         }
 
+        private void moveMan(int x, int y,Graphics g)
+        {
+
+        }
+
 
         private double distanceNextFrame(Ball ball1, Ball ball2)
         {
@@ -101,6 +147,8 @@ namespace StudentLife
                              + Math.Pow(ball1.Y + ball1.velocityY - ball2.Y - ball2.velocityY, 2)) - ball1.Radius -
                    ball2.Radius;
         }
+
+
 
         private double randomDx()
         {
