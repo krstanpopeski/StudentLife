@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace StudentLife
 {
+    [Serializable]
     class Ball
     {
         public double X { get; set; }

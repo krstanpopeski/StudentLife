@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace StudentLife
 {
+    [Serializable]
     class Game
     {
         public List<Ball> balls { get; set; }
         public static Random randInt = new Random();
         public int Width { get; set; }
         public int Height { get; set; }
-        public bool isPaused;
         public int level { get; set; }
         public Grade grade;
         public int poeni { get; set; }
+        public float prosek { get; set; }
+        public float ocenki { get; set; }
         public int vreme { get; set; }
-        public Game(int Width, int Height, bool IsPaused)
+        public Game(int Width, int Height)
         {
-            this.isPaused = IsPaused;
             vreme = 0;
             level = 1;
+            prosek = 0;
+            ocenki = 0;
             balls = new List<Ball>();
             for (int i = 0; i < 10 ; i++)
             {
@@ -42,9 +46,7 @@ namespace StudentLife
         public void increaseLevel()
         {
             level++;
-            isPaused = true;
             MessageBox.Show("You have leveled up!");
-            isPaused = false;
             foreach (Ball ball in balls)
             {
                 ball.velocityX += 5;
@@ -82,7 +84,7 @@ namespace StudentLife
             }
         }
 
-        public bool CheckHitWithMouse(int x, int y,bool isPaused)
+        public bool CheckHitWithMouse(int x, int y)
         {
             for (int i = 0; i < balls.Count; i++)
             {
@@ -92,8 +94,8 @@ namespace StudentLife
 
                  if (balls.ElementAt(i).Radius + balls.ElementAt(i).Radius >= d)
                  {
-                     isPaused = true;
-                     MessageBox.Show("Game Over! You have won: "+poeni+" points!");
+                     prosek = (float) poeni / (float) ocenki;
+                     MessageBox.Show("Game Over! You have got an average grade of: "+prosek);
                      return true;
 
                  }
@@ -104,6 +106,7 @@ namespace StudentLife
             if (grade.CheckHitWithMouse(x, y))
             {
                 poeni += grade.value;
+                ocenki++;
                 if (poeni > 50 && level == 1)
                 {
                     increaseLevel();
@@ -117,8 +120,8 @@ namespace StudentLife
 
                 if (poeni > 180 && level == 3)
                 {
-                    isPaused = true;
-                    MessageBox.Show("You have finnished this game, great job!");
+                    prosek = (float) poeni / (float)ocenki;
+                    MessageBox.Show("You have finnished this game, great job! With average grade of: "+prosek);
                     level++;
                     return true;
                 }

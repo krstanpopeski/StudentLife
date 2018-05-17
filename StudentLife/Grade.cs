@@ -9,6 +9,7 @@ using StudentLife.Properties;
 
 namespace StudentLife
 {
+    [Serializable]
     class Grade
     {
         public int X { get; set; }
